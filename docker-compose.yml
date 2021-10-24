@@ -1,0 +1,58 @@
+version: "2"
+services:
+  
+  Client:
+    container_name: client_microservice
+    ports:
+      - "8083:8083"
+    hostname: client_microservice
+    environment:
+      - MONGO_URL=mongodb+srv://humanRessource:admin@cluster0.ytom5.mongodb.net/humanRessource?retryWrites=true&w=majority
+      - EUREKA_URL=https://fgsc-eureka-server.herokuapp.com/eureka
+    image: "ghadakhedri/client-microservice"
+    depends_on:
+      - Eureka
+      - mongo
+
+  Projet:
+    container_name: projet_microservice
+    ports:
+      - "8084:8084"
+    hostname: projet_microservice
+    environment:
+      - MONGO_URL=mongodb+srv://humanRessource:admin@cluster0.ytom5.mongodb.net/projets?retryWrites=true&w=majority
+      - EUREKA_URL=https://fgsc-eureka-server.herokuapp.com/eureka
+    image: "ghadakhedri/projet-microservice"
+    depends_on:
+      - Eureka
+      - mongo
+
+  Job:
+    container_name: job_microservice
+    ports:
+      - "8086:8086"
+    hostname: job_microservice
+    environment:
+      - MONGO_URL=mongodb+srv://humanRessource:admin@cluster0.ytom5.mongodb.net/job?retryWrites=true&w=majority
+      - EUREKA_URL=https://fgsc-eureka-server.herokuapp.com/eureka
+    image: "ghadakhedri/job-microservice"
+    depends_on:
+      - Eureka
+      - mongo
+
+ 
+  Eureka:
+    container_name: eureka_server
+    ports:
+      - "5000:5000"
+    hostname: eureka_server
+    image: "ghadakhedri/eureka-server"
+    environment:
+      - EUREKA_URL=https://fgsc-eureka-server.herokuapp.com/eureka
+     
+  mongo:
+    container_name: mongo
+    image: mongo
+    ports:
+      - "27017:27017"
+  
