@@ -55,4 +55,96 @@ services:
     image: mongo
     ports:
       - "27017:27017"
+      
+      
+      
+ 
+  departement:
+    container_name: departement:latest
+    ports:
+      - "8084:8084"
+    hostname: depratement
+    environment:
+      - MONGO_URL=mongodb+srv://wds:bouba@cluster0.mtaio.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
+      - EUREKA_URL=https://fgsc-eureka-server.herokuapp.com/eureka
+    image: "departement"
+    depends_on:
+      - Eureka
+      - mongo
+
+ 
+  Eureka:
+    container_name: eureka_server
+    ports:
+      - "5000:5000"
+    hostname: eureka_server
+    image: "departement"
+    environment:
+      - EUREKA_URL=https://fgsc-eureka-server.herokuapp.com/eureka
+     
+  mongo:
+    container_name: mongo
+    image: mongo
+    ports:
+      - "27017:27017"
+  
+  facture:
+    container_name: facture:latest
+    ports:
+      - "8084:8084"
+    hostname: facture
+    environment:
+      - MONGO_URL=mongodb+srv://wds:bouba@cluster0.mtaio.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
+      - EUREKA_URL=https://fgsc-eureka-server.herokuapp.com/eureka
+    image: "facture"
+    depends_on:
+      - Eureka
+      - mongo
+
+ 
+  Eureka:
+    container_name: eureka_server
+    ports:
+      - "5000:5000"
+    hostname: eureka_server
+    image: "facture"
+    environment:
+      - EUREKA_URL=https://fgsc-eureka-server.herokuapp.com/eureka
+     
+  mongo:
+    container_name: mongo
+    image: mongo
+    ports:
+      - "27017:27017"
+
+
+
+   reclamtion:
+    container_name: reclamtion:latest
+    ports:
+      - "8084:8084"
+    hostname: reclamtion
+    environment:
+      - MONGO_URL=mongodb+srv://wds:bouba@cluster0.mtaio.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
+      - EUREKA_URL=https://fgsc-eureka-server.herokuapp.com/eureka
+    image: "reclamtion"
+    depends_on:
+      - Eureka
+      - mongo
+
+ 
+  Eureka:
+    container_name: eureka_server
+    ports:
+      - "5000:5000"
+    hostname: eureka_server
+    image: "reclamtion"
+    environment:
+      - EUREKA_URL=https://fgsc-eureka-server.herokuapp.com/eureka
+     
+  mongo:
+    container_name: mongo
+    image: mongo
+    ports:
+      - "27017:27017"          
   
